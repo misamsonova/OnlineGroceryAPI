@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e37959ab-8a9c-4b59-9bf6-7c075c162c5e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/samson/OnlineGroceryApiApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/samson/Main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +62,85 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager" selected="JUnit.ProductServiceTest">
+    <configuration name="ProductControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineGroceryAPI" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.samson.onlinegroceryapi.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.samson.onlinegroceryapi.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.samson.onlinegroceryapi.controller.ProductControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductControllerTest.testUpdateProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineGroceryAPI" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.samson.onlinegroceryapi.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.samson.onlinegroceryapi.controller" />
+      <option name="MAIN_CLASS_NAME" value="com.samson.onlinegroceryapi.controller.ProductControllerTest" />
+      <option name="METHOD_NAME" value="testUpdateProduct" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineGroceryAPI" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.samson.onlinegroceryapi.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.samson.onlinegroceryapi.service" />
+      <option name="MAIN_CLASS_NAME" value="com.samson.onlinegroceryapi.service.ProductServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductServiceTest.testCreateProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OnlineGroceryAPI" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.samson.onlinegroceryapi.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.samson.onlinegroceryapi.service" />
+      <option name="MAIN_CLASS_NAME" value="com.samson.onlinegroceryapi.service.ProductServiceTest" />
+      <option name="METHOD_NAME" value="testCreateProduct" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OnlineGroceryApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="OnlineGroceryAPI" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.samson.OnlineGroceryApiApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ProductServiceTest" />
+        <item itemvalue="JUnit.ProductServiceTest.testCreateProduct" />
+        <item itemvalue="JUnit.ProductControllerTest" />
+        <item itemvalue="JUnit.ProductControllerTest.testUpdateProduct" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -67,7 +149,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1737376018711</updated>
-      <workItem from="1737376020847" duration="8823000" />
+      <workItem from="1737376020847" duration="28306000" />
     </task>
     <servers />
   </component>
