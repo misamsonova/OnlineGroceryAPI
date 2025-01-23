@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+  app:
+    build: .
+    container_name: onlinegroceryapi-app
+    ports:
+      - "9090:9090"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/grocery_db
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=r1
+
+  db:
+    image: postgres:10
+    container_name: onlinegroceryapi-db
+    environment:
+      POSTGRES_DB: grocery_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: r1
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # Копируем скрипт начальной настройки
+
+volumes:
+  postgres-data:
