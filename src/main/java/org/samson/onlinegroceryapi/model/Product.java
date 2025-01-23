@@ -1,28 +1,27 @@
 package org.samson.onlinegroceryapi.model;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
+
+@Entity
+@Table(name = "products")
 public class Product {
 
-    private static final int MAX_NAME_LENGTH = 255;
-    private static final int MAX_DESCRIPTION_LENGTH = 4096;
+    @Id
+    @Column(nullable = false)
     private Long id;
-    @NotNull
-    @Size(max = MAX_NAME_LENGTH)
-    private String name;
-    @Size(max = MAX_DESCRIPTION_LENGTH)
-    private String description;
-    @Min(0)
-    private double price;
-    private boolean isAvailable = false; // По умолчанию товар не в наличии
 
-    public Product(String name, String description, double price, boolean isAvailable) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.isAvailable = isAvailable;
-    }
+    @NotBlank(message = "Product name is required.")
+    @Size(max = 255, message = "Product name must not exceed 255 characters.")
+    private String name;
+
+    @Size(max = 4096, message = "Description must not exceed 4096 characters.")
+    private String description;
+
+    @Min(value = 0, message = "Price must not be less than 0.")
+    private double price = 0.0;
+
+    private boolean isAvailable = false;
 
     public Long getId() {
         return id;
@@ -60,7 +59,7 @@ public class Product {
         return isAvailable;
     }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
+    public void setIsAvailable(boolean isAvailable) {
+        this.isAvailable = isAvailable;
     }
 }
