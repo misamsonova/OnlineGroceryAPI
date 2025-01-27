@@ -1,16 +1,20 @@
 package org.samson.onlinegroceryapi.service;
 
+import jakarta.persistence.criteria.Predicate;
 import org.samson.onlinegroceryapi.dto.ProductDTO;
 import org.samson.onlinegroceryapi.exception.ResourceNotFoundException;
 import org.samson.onlinegroceryapi.model.Product;
 import org.samson.onlinegroceryapi.repository.ProductRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -44,6 +48,35 @@ public class ProductService {
         nextId = Math.max(nextId, expectedId);
     }
 
+
+    public List<ProductDTO> getFilteredProducts(String name, Double priceMin, Double priceMax, Boolean isAvailable,
+                                                String sortBy, Integer limit) {
+        Specification<Product> specification = (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (name != null) {
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + name.toLowerCase() + "%"));
+            }
+            if (priceMin != null) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("price"), priceMin));
+            }
+            if (priceMax != null) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("price"), priceMax));
+            }
+            if (isAvailable != null) {
+                predicates.add(criteriaBuilder.equal(root.get("isAvailable"), isAvailable));
+            }
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
+
+        Sort sort = Sort.by(Sort.Direction.ASC, sortBy != null ? sortBy : "id");
+        PageRequest pageRequest = PageRequest.of(0, limit != null ? limit : Integer.MAX_VALUE, sort);
+
+        return productRepository.findAll(specification, pageRequest)
+                .stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
     public List<Long> getAvailableIds() {
         return new ArrayList<>(availableIds);
     }
@@ -64,29 +97,15 @@ public class ProductService {
 
     public ProductDTO createProduct(ProductDTO productDto) {
         Product product = convertToEntity(productDto);
-
-        Long id;
-        if (!availableIds.isEmpty()) {
-            id = availableIds.poll();
-        } else {
-            id = nextId++;
-        }
-        product.setId(id);
-
         Product savedProduct = productRepository.save(product);
-
-        updateAvailableIds();
-
         return convertToDto(savedProduct);
     }
 
     public ProductDTO updateProduct(Long id, ProductDTO productDto) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
-
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
-
         Product updatedProduct = productRepository.save(product);
         return convertToDto(updatedProduct);
     }
@@ -96,23 +115,6 @@ public class ProductService {
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
         productRepository.delete(product);
         availableIds.add(id);
-    }
-
-
-    private void updateAvailableIds() {
-        List<Long> existingIds = productRepository.findAll()
-                .stream()
-                .map(Product::getId)
-                .toList();
-
-        long expectedId = 1L;
-
-        while (expectedId < nextId) {
-            if (!existingIds.contains(expectedId) && !availableIds.contains(expectedId)) {
-                availableIds.add(expectedId);
-            }
-            expectedId++;
-        }
     }
 
     private ProductDTO convertToDto(Product product) {
